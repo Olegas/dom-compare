@@ -1,0 +1,23 @@
+{
+   "name": "dom-compare",
+   "description": "Library to compare two DOM trees",
+   "version": "0.1.0",
+   "author": "Oleg Elifantiev <oleg@elifantiev.ru>",
+   "contributors": [],
+   "keywords": [
+      "dom"
+   ],
+   "dependencies": {
+      
+   },
+   "devDependencies": {
+      "xmldom": "latest",
+      "assert": "latest",
+      "mocha": "latest"
+   },
+   "scripts": {
+      "test": "./node_modules/mocha/bin/mocha -R spec"
+   },
+   "repository": "git@github.com:Olegas/dom-compare.git",
+   "engines": { "node": "*" }
+}
