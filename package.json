@@ -16,7 +16,7 @@
       "mocha": "latest"
    },
    "scripts": {
-      "test": "./node_modules/mocha/bin/mocha -R spec"
+      "test": "node ./node_modules/mocha/bin/mocha -R spec"
    },
    "repository": "git@github.com:Olegas/dom-compare.git",
    "engines": { "node": "*" }
