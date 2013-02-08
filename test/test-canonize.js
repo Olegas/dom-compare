@@ -53,4 +53,17 @@ describe("Canonize", function(){
 "  a='1'/>";
       assert.equal(docCanon, canonize(doc));
    });
+
+   it("Any leading/triling whitespace in text and comment nodes is trimmed", function(){
+      var doc = parser.parseFromString("<doc>  test<elem>   aaa   </elem><!--  comment  --></doc>");
+      var docCanon =
+"<doc>\n" +
+"    test\n" +
+"    <elem>\n" +
+"        aaa\n" +
+"    </elem>\n" +
+"    <!--comment-->\n" +
+"</doc>";
+      assert.equal(docCanon, canonize(doc));
+   });
 });
