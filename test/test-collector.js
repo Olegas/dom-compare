@@ -103,7 +103,7 @@ describe("Error collection", function(){
          var failures = result.getFailures();
 
          assert.equal(1, failures.length);
-         assert.equal("Expected node of type 1 instead of 3", failures[0].message);
+         assert.equal("Expected node of type 1 (a) instead of 3 ('TextTextText')", failures[0].message);
       });
 
       it("... and by node names then", function(){
