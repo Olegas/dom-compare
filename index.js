@@ -3,8 +3,8 @@
    "use strict";
 
    module.exports = {
-      comparator: require('./lib/compare'),
-      canonizer: require('./lib/canonizer')
+      compare: require('./lib/compare'),
+      canonize: require('./lib/canonizer')
    };
 
 })();
