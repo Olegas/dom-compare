@@ -143,7 +143,7 @@ describe('Compare', function () {
          });
       });
 
-      describe("TextNodes", function () {
+      describe("Text", function () {
          it("compared by default with all whitespaces", function () {
             var doc1 = parser.parseFromString("<doc><node>A</node>B</doc>");
             var doc2 = parser.parseFromString("<doc><node>A</node>B</doc>");
@@ -160,6 +160,14 @@ describe('Compare', function () {
             doc1 = parser.parseFromString("<doc><node>A</node></doc>");
             doc2 = parser.parseFromString("<doc><node> A </node></doc>");
             assert.equal(false, compare(doc1, doc2).getResult());
+         });
+
+         it("empty text nodes are always ignored", function(){
+
+            var doc1 = parser.parseFromString("<doc>    <node /><b />    </doc>");
+            var doc2 = parser.parseFromString("<doc><node />     <b /></doc>");
+            assert.equal(true, compare(doc1, doc2).getResult());
+
          });
 
          it("set `stripSpaces` option to get rid of them", function () {
