@@ -15,7 +15,7 @@ describe("Error collection", function(){
       var failures = result.getFailures();
 
       assert.equal(1, failures.length);
-      assert.equal("Expected root1 instead of root2", failures[0].message);
+      assert.equal("Expected element 'root1' instead of 'root2'", failures[0].message);
 
    });
 
@@ -31,8 +31,8 @@ describe("Error collection", function(){
          var failures = result.getFailures();
 
          assert.equal(2, failures.length);
-         assert.equal("Expected value '1' instead of '10' for attribute attr1", failures[0].message);
-         assert.equal("Expected attr3 instead of attr4", failures[1].message);
+         assert.equal("Attribute attr1: expected value '1' instead of '10'", failures[0].message);
+         assert.equal("Expected attribute 'attr3' instead of 'attr4'", failures[1].message);
 
       });
 
@@ -115,7 +115,7 @@ describe("Error collection", function(){
          var failures = result.getFailures();
 
          assert.equal(1, failures.length);
-         assert.equal("Expected a instead of b", failures[0].message);
+         assert.equal("Expected element 'a' instead of 'b'", failures[0].message);
       });
 
       describe("Elements", function(){
