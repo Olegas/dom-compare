@@ -30,9 +30,10 @@ describe("Error collection", function(){
 
          var failures = result.getFailures();
 
-         assert.equal(2, failures.length);
+         assert.equal(3, failures.length);
          assert.equal("Attribute attr1: expected value '1' instead of '10'", failures[0].message);
-         assert.equal("Expected attribute 'attr3' instead of 'attr4'", failures[1].message);
+         assert.equal("Attribute 'attr3' is not found", failures[1].message);
+         assert.equal("Extra attribute 'attr4'", failures[2].message);
 
       });
 
@@ -46,8 +47,8 @@ describe("Error collection", function(){
          var failures = result.getFailures();
 
          assert.equal(2, failures.length);
-         assert.equal("Attribute attr2 is not found", failures[0].message);
-         assert.equal("Attribute attr3 is not found", failures[1].message);
+         assert.equal("Attribute 'attr2' is not found", failures[0].message);
+         assert.equal("Attribute 'attr3' is not found", failures[1].message);
 
          // Case: Target has no attributes at all
          doc1 = parser.parseFromString("<root><a attr2='2' attr3='3'></a></root>");
@@ -58,8 +59,8 @@ describe("Error collection", function(){
          failures = result.getFailures();
 
          assert.equal(2, failures.length);
-         assert.equal("Attribute attr2 is not found", failures[0].message);
-         assert.equal("Attribute attr3 is not found", failures[1].message);
+         assert.equal("Attribute 'attr2' is not found", failures[0].message);
+         assert.equal("Attribute 'attr3' is not found", failures[1].message);
 
       });
 
@@ -73,8 +74,8 @@ describe("Error collection", function(){
          var failures = result.getFailures();
 
          assert.equal(2, failures.length);
-         assert.equal("Extra attribute attr2", failures[0].message);
-         assert.equal("Extra attribute attr3", failures[1].message);
+         assert.equal("Extra attribute 'attr2'", failures[0].message);
+         assert.equal("Extra attribute 'attr3'", failures[1].message);
 
          // Case: Source has no attributes at all
          doc1 = parser.parseFromString("<root><a></a></root>");
@@ -85,8 +86,8 @@ describe("Error collection", function(){
          failures = result.getFailures();
 
          assert.equal(2, failures.length);
-         assert.equal("Extra attribute attr2", failures[0].message);
-         assert.equal("Extra attribute attr3", failures[1].message);
+         assert.equal("Extra attribute 'attr2'", failures[0].message);
+         assert.equal("Extra attribute 'attr3'", failures[1].message);
 
       });
 
@@ -103,7 +104,7 @@ describe("Error collection", function(){
          var failures = result.getFailures();
 
          assert.equal(1, failures.length);
-         assert.equal("Expected node of type 1 (a) instead of 3 ('TextTextText')", failures[0].message);
+         assert.equal("Expected node of type 1 (element) instead of 3 (text node)", failures[0].message);
       });
 
       it("... and by node names then", function(){
