@@ -176,7 +176,24 @@ describe("Error collection", function(){
    });
 
 
+   describe("Differences groupping", function(){
 
+      it("differences can be grouped by source node XPath", function(){
+
+         var doc = parser.parseFromString("<doc attr1='1' attr2='2'><node1 attrX='y'><inner1 /></node1><node2><inner /></node2></doc>");
+         var doc2 = parser.parseFromString("<doc attr1='10'><node1 /><node2 /><extraNode /></doc>");
+
+         var result = compare(doc, doc2);
+         var failures = result.getFailures(true);
+
+         assert.equal(3, Object.keys(failures).length);
+         assert.equal(3, failures['/doc'].length);
+         assert.equal(2, failures['/doc/node1'].length);
+         assert.equal(1, failures['/doc/node2'].length);
+
+      });
+
+   });
 
 
 
