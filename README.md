@@ -5,6 +5,64 @@ dom-compare
 
 NodeJS module to compare two dom trees
 
-**EARLY DEVELOPMENT STATE**
+**EARLY DEVELOPMENT STAGE**
 
-**NOT COMPLETE**
+**NOT COMPLETE, NOT STABLE API**
+
+DOM Comparison
+--------------
+
+```javascript
+var compare = require('dom-compare').comapre;
+var expected = ...; // expected DOM tree
+var actual = ...; // acutal one
+
+var result = compare(expected, actual);
+
+console.log(result.getResult()); // true if equal
+
+var differences = result.getFailures(); // array of strings, each one is comparison error
+
+var grouppedDiffs = result.getFailures(true); // comparison errors, grouped by expected node XPath
+
+```
+
+DOM Canonic Form
+----------------
+Simple rules
+ 1. Every node (text, node, attribute) on a new line
+ 2. Empty tags - in a short form
+ 3. Node indent - 4 spaces, attribute indent - 2 spaces
+
+Consider the following XML-document...
+```xml
+<document>
+  <element>DOM Compare</element>
+  <emptyNode></emptyNode>
+  <element attribute1="value" attribute2="value">
+    <element>Text node</element>
+  </element>
+</document>
+```
+...and code snippet...
+```javascript
+var canonize = require('dom-compare').canonize;
+var doc = ...; // parse above document somehow 
+console.log(canonize(doc));
+```
+You'll receive the following output
+```xml
+<document>
+    <element>
+        DOM Compare
+    </element>
+    <emptyNode />
+    <element
+      attribute1="value"
+      attribute2="value">
+        <element>
+            Text node
+        </element>
+    </element>
+</document>
+```
