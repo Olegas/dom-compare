@@ -21,9 +21,9 @@ var result = compare(expected, actual);
 
 console.log(result.getResult()); // true if equal
 
-var differences = result.getFailures(); // array of strings, each one is comparison error
+var differences = result.getDifferences(); // array of strings, each one is comparison error
 
-var grouppedDiffs = result.getFailures(true); // comparison errors, grouped by expected node XPath
+var groupedDiffs = result.getDifferences({ grouped: true }); // comparison errors, grouped by expected node XPath
 
 ```
 

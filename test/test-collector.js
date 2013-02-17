@@ -12,7 +12,7 @@ describe("Error collection", function(){
 
       var result = compare(doc1, doc2, {});
 
-      var failures = result.getFailures();
+      var failures = result.getDifferences();
 
       assert.equal(1, failures.length);
       assert.equal("Expected element 'root1' instead of 'root2'", failures[0].message);
@@ -28,7 +28,7 @@ describe("Error collection", function(){
 
          var result = compare(doc1, doc2, {});
 
-         var failures = result.getFailures();
+         var failures = result.getDifferences();
 
          assert.equal(3, failures.length);
          assert.equal("Attribute attr1: expected value '1' instead of '10'", failures[0].message);
@@ -44,7 +44,7 @@ describe("Error collection", function(){
 
          var result = compare(doc1, doc2, {});
 
-         var failures = result.getFailures();
+         var failures = result.getDifferences();
 
          assert.equal(2, failures.length);
          assert.equal("Attribute 'attr2' is not found", failures[0].message);
@@ -56,7 +56,7 @@ describe("Error collection", function(){
 
          result = compare(doc1, doc2, {});
 
-         failures = result.getFailures();
+         failures = result.getDifferences();
 
          assert.equal(2, failures.length);
          assert.equal("Attribute 'attr2' is not found", failures[0].message);
@@ -71,7 +71,7 @@ describe("Error collection", function(){
 
          var result = compare(doc1, doc2, {});
 
-         var failures = result.getFailures();
+         var failures = result.getDifferences();
 
          assert.equal(2, failures.length);
          assert.equal("Extra attribute 'attr2'", failures[0].message);
@@ -83,7 +83,7 @@ describe("Error collection", function(){
 
          result = compare(doc1, doc2, {});
 
-         failures = result.getFailures();
+         failures = result.getDifferences();
 
          assert.equal(2, failures.length);
          assert.equal("Extra attribute 'attr2'", failures[0].message);
@@ -101,7 +101,7 @@ describe("Error collection", function(){
 
          var result = compare(doc1, doc2, {});
 
-         var failures = result.getFailures();
+         var failures = result.getDifferences();
 
          assert.equal(1, failures.length);
          assert.equal("Expected node of type 1 (element) instead of 3 (text node)", failures[0].message);
@@ -113,7 +113,7 @@ describe("Error collection", function(){
 
          var result = compare(doc1, doc2, {});
 
-         var failures = result.getFailures();
+         var failures = result.getDifferences();
 
          assert.equal(1, failures.length);
          assert.equal("Expected element 'a' instead of 'b'", failures[0].message);
@@ -131,7 +131,7 @@ describe("Error collection", function(){
 
             var result = compare(doc1, doc2, {});
 
-            var failures = result.getFailures();
+            var failures = result.getDifferences();
 
             assert.equal(1, failures.length);
             assert.equal("Extra text node 'Second'", failures[0].message);
@@ -143,7 +143,7 @@ describe("Error collection", function(){
 
             var result = compare(doc1, doc2, {});
 
-            var failures = result.getFailures();
+            var failures = result.getDifferences();
 
             assert.equal(1, failures.length);
             assert.equal("Text node 'Second' is not found", failures[0].message);
@@ -153,7 +153,7 @@ describe("Error collection", function(){
 
             result = compare(doc1, doc2, { stripSpaces: true });
 
-            failures = result.getFailures();
+            failures = result.getDifferences();
 
             assert.equal(1, failures.length);
             assert.equal("Text node 'Second' is not found", failures[0].message);
@@ -165,7 +165,7 @@ describe("Error collection", function(){
 
             var result = compare(doc1, doc2, {});
 
-            var failures = result.getFailures();
+            var failures = result.getDifferences();
 
             assert.equal(1, failures.length);
             assert.equal("Expected text 'Foo' instead of 'Bar'", failures[0].message);
@@ -184,7 +184,7 @@ describe("Error collection", function(){
          var doc2 = parser.parseFromString("<doc attr1='10'><node1 /><node2 /><extraNode /></doc>");
 
          var result = compare(doc, doc2);
-         var failures = result.getFailures(true);
+         var failures = result.getDifferences({ grouped: true });
 
          assert.equal(3, Object.keys(failures).length);
          assert.equal(3, failures['/doc'].length);
