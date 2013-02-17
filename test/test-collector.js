@@ -32,7 +32,7 @@ describe("Error collection", function(){
 
          assert.equal(3, failures.length);
          assert.equal("Attribute attr1: expected value '1' instead of '10'", failures[0].message);
-         assert.equal("Attribute 'attr3' is not found", failures[1].message);
+         assert.equal("Attribute 'attr3' is missed", failures[1].message);
          assert.equal("Extra attribute 'attr4'", failures[2].message);
 
       });
@@ -47,8 +47,8 @@ describe("Error collection", function(){
          var failures = result.getDifferences();
 
          assert.equal(2, failures.length);
-         assert.equal("Attribute 'attr2' is not found", failures[0].message);
-         assert.equal("Attribute 'attr3' is not found", failures[1].message);
+         assert.equal("Attribute 'attr2' is missed", failures[0].message);
+         assert.equal("Attribute 'attr3' is missed", failures[1].message);
 
          // Case: Target has no attributes at all
          doc1 = parser.parseFromString("<root><a attr2='2' attr3='3'></a></root>");
@@ -59,8 +59,8 @@ describe("Error collection", function(){
          failures = result.getDifferences();
 
          assert.equal(2, failures.length);
-         assert.equal("Attribute 'attr2' is not found", failures[0].message);
-         assert.equal("Attribute 'attr3' is not found", failures[1].message);
+         assert.equal("Attribute 'attr2' is missed", failures[0].message);
+         assert.equal("Attribute 'attr3' is missed", failures[1].message);
 
       });
 
@@ -146,7 +146,7 @@ describe("Error collection", function(){
             var failures = result.getDifferences();
 
             assert.equal(1, failures.length);
-            assert.equal("Text node 'Second' is not found", failures[0].message);
+            assert.equal("Text node 'Second' is missed", failures[0].message);
 
             doc1 = parser.parseFromString("<root>First  <a />  Second</root>");
             doc2 = parser.parseFromString("<root>  First<a /></root>");
@@ -156,7 +156,7 @@ describe("Error collection", function(){
             failures = result.getDifferences();
 
             assert.equal(1, failures.length);
-            assert.equal("Text node 'Second' is not found", failures[0].message);
+            assert.equal("Text node 'Second' is missed", failures[0].message);
          });
 
          it("Different content reported", function(){

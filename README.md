@@ -33,6 +33,7 @@ Simple rules
  1. Every node (text, node, attribute) on a new line
  2. Empty tags - in a short form
  3. Node indent - 4 spaces, attribute indent - 2 spaces
+ 4. Attributes are sorted alphabetically
 
 Consider the following XML-document...
 ```xml
