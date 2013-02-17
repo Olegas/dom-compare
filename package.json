@@ -5,7 +5,8 @@
    "author": "Oleg Elifantiev <oleg@elifantiev.ru>",
    "contributors": [],
    "keywords": [
-      "dom"
+      "dom",
+      "comparison"
    ],
    "dependencies": {
       
