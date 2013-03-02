@@ -22,6 +22,15 @@ describe("Differences reporting", function(){
          assert.equal(2, failures['/doc/node1'].length);
          assert.equal(1, failures['/doc/node2'].length);
 
+         // check for results doplication
+         reporter.setResult(compare(doc, doc2));
+         failures = reporter.getDifferences();
+
+         assert.equal(3, Object.keys(failures).length);
+         assert.equal(3, failures['/doc'].length);
+         assert.equal(2, failures['/doc/node1'].length);
+         assert.equal(1, failures['/doc/node2'].length);
+
       });
 
    });
