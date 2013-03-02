@@ -31,7 +31,7 @@ describe("Error collection", function(){
          var failures = result.getDifferences();
 
          assert.equal(3, failures.length);
-         assert.equal("Attribute attr1: expected value '1' instead of '10'", failures[0].message);
+         assert.equal("Attribute 'attr1': expected value '1' instead of '10'", failures[0].message);
          assert.equal("Attribute 'attr3' is missed", failures[1].message);
          assert.equal("Extra attribute 'attr4'", failures[2].message);
 
