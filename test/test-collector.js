@@ -2,6 +2,7 @@ var assert = require("assert");
 var xmldom = require("xmldom");
 var parser = new xmldom.DOMParser();
 var compare = require("../lib/compare");
+var nodeTypes = require("../lib/node_types");
 
 describe("Error collection", function(){
 
@@ -172,6 +173,81 @@ describe("Error collection", function(){
          })
 
       })
+
+   });
+
+
+   describe("Custom comparison routine", function(){
+
+      it("User can provide custom comparison routine, it can be used to extended reporting", function(){
+
+         var doc1 = parser.parseFromString("<root><a attr='10' /></root>");
+         var doc2 = parser.parseFromString("<root><a attr='20' /></root>");
+
+         var result = compare(doc1, doc2, {
+            comparators: {
+               ATTRIBUTE_NODE: function(e, a) {
+                  if(e.nodeValue > a.nodeValue)
+                     return "Actual value is less than expected";
+                  else if(e.nodeValue < a.nodeValue)
+                     return "Actual value is greater than expected";
+               }
+            }
+         });
+
+         var failures = result.getDifferences();
+
+         assert.equal(1, failures.length);
+         assert.equal("Actual value is greater than expected", failures[0].message);
+
+
+      });
+
+      it("Custom comparison routine can ignore node differences", function(){
+
+         var doc1 = parser.parseFromString("<root><a attr='10' /></root>");
+         var doc2 = parser.parseFromString("<root><a attr='20' /></root>");
+
+         var result = compare(doc1, doc2, {
+            comparators: {
+               ATTRIBUTE_NODE: function() {
+                  return true;
+               }
+            }
+         });
+
+         var failures = result.getDifferences();
+
+         assert.equal(0, failures.length);
+
+      });
+
+      it("Custom comparison routine can skip node checking. It will be processed by common routine.", function(){
+
+         var doc1 = parser.parseFromString("<root><a attr='10' m='2'/></root>");
+         var doc2 = parser.parseFromString("<root><a attr='20' m='3'/></root>");
+
+         var result = compare(doc1, doc2, {
+            comparators: {
+               ATTRIBUTE_NODE: function(e, a) {
+                  if(e.nodeName == 'attr') {
+                     if(e.nodeValue > a.nodeValue)
+                        return "Actual value is less than expected";
+                     else if(e.nodeValue < a.nodeValue)
+                        return "Actual value is greater than expected";
+                  }
+               }
+            }
+         });
+
+         var failures = result.getDifferences();
+
+         assert.equal(2, failures.length);
+         assert.equal("Actual value is greater than expected", failures[0].message);
+         assert.equal("Attribute 'm': expected value '2' instead of '3'", failures[1].message);
+
+
+      });
 
    });
 
