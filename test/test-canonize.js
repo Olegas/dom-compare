@@ -1,7 +1,7 @@
 var assert = require("assert");
 var xmldom = require("xmldom");
 var parser = new xmldom.DOMParser();
-var canonize = require("../lib/canonizer");
+var canonize = new (require("../lib/canonizer"))().serializeToString;
 
 describe("Canonize", function(){
    it("can make a canonical form of a document", function(){
