@@ -37,6 +37,8 @@ and actual one:
 </document>
 ```
 
+One can compare them, get the result (is them equals, or not), and get extended report (why them are different).
+
 ```javascript
 var compare = require('dom-compare').compare,
     reporter = require('dom-compare').GroupingReporter,
@@ -51,13 +53,33 @@ result = compare(expected, actual);
 console.log(result.getResult()); // false cause' trees are different
 
 // get all differences
-diff = result.getDifferences(); // array of strings, each one is comparison error
+diff = result.getDifferences(); // array of diff-objects
 
-// differences, groupped by node XPath
-grouped = reporter.getDifferences(result);
+// differences, grouped by node XPath
+grouped = reporter.getDifferences(result); // object, key - node XPATH, value - array of differences (strings)
 
 // string representation
 console.log(report.report(result));
+```
+
+Diff-object has a following form:
+
+```javascript
+{
+    node: "/document/element",
+    message: "Attribute 'attribute': expected value '10' instead of '100'";
+}
+```
+
+By using `GroupongReporter` one can get a result of a following type
+
+```javascript
+{
+    '/document/element': [
+        "Attribute 'attribute': expected value '10' instead of '100'",
+        "Extra attribute 'attributeX'"
+    ]    
+}
 ```
 
 DOM Canonic Form
