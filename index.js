@@ -4,7 +4,7 @@
 
    module.exports = {
       compare: require('./lib/compare'),
-      canonize: require('./lib/canonizer'),
+      XMLSerializer: require('./lib/canonizer'),
       revXPath: require('./lib/revxpath'),
       GroupingReporter: require('./lib/reporters/groupingReporter.js')
    };
