@@ -66,4 +66,16 @@ describe("Canonize", function(){
 "</doc>";
       assert.equal(docCanon, canonize(doc));
    });
+
+   it("Attribute values serialized in double quotes", function(){
+      var doc = parser.parseFromString("<doc><a href='\"x\"' alt=\"'x'\" /></doc>");
+      var docCanon =
+"<doc>\n" +
+"    <a\n" +
+"      alt=\"'x'\"\n" +
+"      href=\"&quot;x&quot;\" />'\n" +
+"</doc>";
+      assert.equal(docCanon, canonize(doc));
+   });
+
 });
