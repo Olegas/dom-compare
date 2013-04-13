@@ -5,8 +5,6 @@ dom-compare
 
 NodeJS module to compare two DOM-trees
 
-**NOT COMPLETE, NOT STABLE API**
-
 DOM Comparison
 --------------
 
