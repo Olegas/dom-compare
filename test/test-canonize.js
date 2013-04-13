@@ -73,7 +73,7 @@ describe("Canonize", function(){
 "<doc>\n" +
 "    <a\n" +
 "      alt=\"'x'\"\n" +
-"      href=\"&quot;x&quot;\" />'\n" +
+"      href=\"&quot;x&quot;\" />\n" +
 "</doc>";
       assert.equal(docCanon, canonize(doc));
    });
