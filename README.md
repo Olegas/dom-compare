@@ -3,7 +3,7 @@ dom-compare
 
 [![Build Status](https://travis-ci.org/Olegas/dom-compare.png)](https://travis-ci.org/Olegas/dom-compare)
 
-NodeJS module to compare two dom trees
+NodeJS module to compare two DOM-trees
 
 **NOT COMPLETE, NOT STABLE API**
 
