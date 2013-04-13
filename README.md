@@ -5,8 +5,6 @@ dom-compare
 
 NodeJS module to compare two dom trees
 
-**EARLY DEVELOPMENT STAGE**
-
 **NOT COMPLETE, NOT STABLE API**
 
 DOM Comparison
@@ -81,6 +79,27 @@ By using `GroupongReporter` one can get a result of a following type
     ]    
 }
 ```
+
+### Comparison options
+
+Comparison function can take a third argument with options like this:
+```javascript
+var options = {
+    stripSpaces: true,
+    compareComments: true
+};
+
+result = compare(expected, actual, options);
+```
+#### Comments comparison
+By default, all comments are ignored. Set `compareComments` options to `true` to compare them too.
+
+
+#### Whitespace comparison
+By default, all text nodes (text, CDATA, comments if enabled as mentioned above) compared with respect 
+to leading and trailing whitespaces.
+Set `stripSpaces` option to `true` to automatically strip spaces in text and comment nodes. This option
+doesn't change the way CDATA sections is compared, they are always compared with respect to whitespaces.
 
 DOM Canonic Form
 ----------------
