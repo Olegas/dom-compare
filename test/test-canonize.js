@@ -9,13 +9,13 @@ describe("Canonize", function(){
          "<!--COMMENT--></a><b><![CDATA[ cdata node]]></b></elem><x><z></z></x></doc>");
       var docCanon =
 "<doc\n" +
-"  a='x'\n" +
-"  b='1'\n" +
-"  z='y'>\n" +
+"  a=\"x\"\n" +
+"  b=\"1\"\n" +
+"  z=\"y\">\n" +
 "    <elem\n" +
-"      a='4'\n" +
-"      m='1'\n" +
-"      x='k'>\n" +
+"      a=\"4\"\n" +
+"      m=\"1\"\n" +
+"      x=\"k\">\n" +
 "        <a>\n" +
 "            <!--COMMENT-->\n" +
 "        </a>\n" +
@@ -24,7 +24,7 @@ describe("Canonize", function(){
 "        </b>\n" +
 "    </elem>\n" +
 "    <x>\n" +
-"        <z/>\n" +
+"        <z />\n" +
 "    </x>\n" +
 "</doc>";
       assert.equal(docCanon, canonize(doc));
@@ -34,7 +34,7 @@ describe("Canonize", function(){
       var doc = parser.parseFromString("<doc a='1'><nested>text</nested></doc>");
       var docCanon =
 "<doc\n" +
-"  a='1'>\n" +
+"  a=\"1\">\n" +
 "    <nested>\n" +
 "        text\n" +
 "    </nested>\n" +
@@ -44,13 +44,13 @@ describe("Canonize", function(){
 
    it("Empty tags serialized in short form", function(){
       var doc = parser.parseFromString("<doc></doc>");
-      var docCanon = "<doc/>";
+      var docCanon = "<doc />";
       assert.equal(docCanon, canonize(doc));
 
       doc = parser.parseFromString("<doc a='1'></doc>");
       docCanon =
 "<doc\n" +
-"  a='1'/>";
+"  a=\"1\" />";
       assert.equal(docCanon, canonize(doc));
    });
 

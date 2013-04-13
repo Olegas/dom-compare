@@ -110,6 +110,7 @@ Simple rules
  2. Empty tags - in a short form
  3. Node indent - 4 spaces, attribute indent - 2 spaces
  4. Attributes are sorted alphabetically
+ 5. Attribute values are serialized in double quotes
 
 Consider the following XML-document...
 ```xml
