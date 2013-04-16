@@ -2,6 +2,7 @@ dom-compare
 ===========
 
 [![Build Status](https://travis-ci.org/Olegas/dom-compare.png)](https://travis-ci.org/Olegas/dom-compare)
+[![Coverage Status](https://coveralls.io/repos/Olegas/dom-compare/badge.png?branch=master)](https://coveralls.io/r/Olegas/dom-compare)
 
 NodeJS module to compare two DOM-trees
 
