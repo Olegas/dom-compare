@@ -1,8 +1,8 @@
-var libPrefix = process.env.COVER ? '../lib-cov' : '../lib';
 var assert = require("assert");
 var xmldom = require("xmldom");
 var parser = new xmldom.DOMParser();
-var revxpath = require(libPrefix + "/revxpath.js");
+var domCompare = require("../");
+var revxpath = domCompare.revXPath;
 
 describe("Reverse XPath", function(){
 
