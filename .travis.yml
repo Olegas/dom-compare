@@ -1,6 +1,8 @@
 language: node_js
+
 node_js:
   - 0.6
   - 0.8
   - 0.10
-script: npm run-script test-cov && (cat lcov.info | ./node_modules/.bin/coveralls) && (rm -rf lib-cov lcov.info)
+
+script: npm test && npm run-script test-cov && (cat lcov.info | ./node_modules/.bin/coveralls) && (rm -rf lib-cov lcov.info)
