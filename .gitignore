@@ -1,4 +1,5 @@
 lib-cov
+lcov.info
 *.seed
 *.log
 *.csv

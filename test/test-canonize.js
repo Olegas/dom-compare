@@ -1,7 +1,8 @@
+var libPrefix = process.env.COVER ? '../lib-cov' : '../lib';
 var assert = require("assert");
 var xmldom = require("xmldom");
 var parser = new xmldom.DOMParser();
-var canonize = new (require("../lib/canonizer"))().serializeToString;
+var canonize = new (require(libPrefix + "/canonizer"))().serializeToString;
 
 describe("Canonize", function(){
    it("can make a canonical form of a document", function(){

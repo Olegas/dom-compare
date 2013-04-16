@@ -1,7 +1,8 @@
+var libPrefix = process.env.COVER ? '../lib-cov' : '../lib';
 var assert = require("assert");
 var xmldom = require("xmldom");
 var parser = new xmldom.DOMParser();
-var compare = require("../lib/compare");
+var compare = require(libPrefix + "/compare");
 
 describe('Compare', function () {
    describe('Documents', function () {
