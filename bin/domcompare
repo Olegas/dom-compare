@@ -1,0 +1,98 @@
+#!/usr/bin/env node
+
+'use strict'
+
+var domcompare = require('../'),
+    colors = require('colors'),
+    compare = domcompare.compare,
+    reporter = domcompare.GroupingReporter,
+    fs = require('fs'),
+    ArgumentParser = require('argparse').ArgumentParser,
+    version = require('../package.json').version,
+    xmldom = require('xmldom'),
+    path = require('path'),
+    domparser = new (xmldom.DOMParser)(),
+    args, dom1, dom2, f1ext, f2ext, mimeMap, result, argparser;
+
+var ERR_BAD_FILES = 254,
+    ERR_FILES_DIFFER = 1,
+    ERR_OK = 0;
+
+mimeMap = {
+    '.html' : 'text/html',
+    '.xml' : 'text/xml'
+}
+
+argparser = new ArgumentParser({
+    version: version,
+    addHelp: true,
+    description: 'domcompare - simple DOM comparison utility'
+});
+
+argparser.addArgument([ '-s', '--stripspaces' ], {
+    defaultValue: false,
+    dest: 'stripSpaces',
+    action: 'storeTrue',
+    help: "Strip spaces when comparing strings (exclude CDATA nodes)"
+});
+
+argparser.addArgument([ '-c', '--comments' ], {
+    defaultValue: false,
+    dest: 'compareComments',
+    action: 'storeTrue',
+    help: "Compare comments"
+});
+
+argparser.addArgument([ '-q', '--quiet' ], {
+    defaultValue: false,
+    dest: 'quiet',
+    action: 'storeTrue',
+    help: "Be quiet, don't output anything"
+});
+
+argparser.addArgument([ 'FILE1' ], {
+    help: 'Reference file'
+});
+
+argparser.addArgument([ 'FILE2' ], {
+    help: 'File to compare'
+});
+
+
+
+args = argparser.parseArgs();
+args.FILE1 = path.resolve(args.FILE1);
+args.FILE2 = path.resolve(args.FILE2);
+
+function getMime(f) {
+    return mimeMap[path.extname(f)] || 'text/xml';
+}
+
+function log(s) {
+    if(!args.quiet) {
+        console.log(s);
+    }
+}
+
+if(fs.existsSync(args.FILE1) && fs.existsSync(args.FILE2)) {
+    dom1 = domparser.parseFromString(fs.readFileSync(args.FILE1, 'utf8'), getMime(args.FILE1));
+    dom2 = domparser.parseFromString(fs.readFileSync(args.FILE2, 'utf8'), getMime(args.FILE2));
+
+    result = compare(dom1, dom2, args);
+
+    if(result.getResult()) {
+        log('Documents are equal'.green);
+        process.exit(ERR_OK);
+    } else {
+        log('Documents are not equal'.red);
+        log(reporter.report(result));
+        process.exit(ERR_FILES_DIFFER);
+    }
+
+} else {
+    log('Error'.red);
+    process.exit(ERR_BAD_FILES);
+}
+
+
+

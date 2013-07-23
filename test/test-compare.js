@@ -66,6 +66,22 @@ describe('Compare', function () {
          var doc1 = parser.parseFromString("<doc><node a='1' /></doc>");
          var doc2 = parser.parseFromString("<doc><node a='2' /></doc>");
          assert.equal(false, compare(doc1, doc2).getResult());
+
+         describe("spaces matters", function(){
+
+            it("", function(){
+               var doc1 = parser.parseFromString("<doc><node a='1' /></doc>");
+               var doc2 = parser.parseFromString("<doc><node a=' 1 ' /></doc>");
+               assert.equal(false, compare(doc1, doc2).getResult());
+            });
+
+            it("but can be omitted", function(){
+               doc1 = parser.parseFromString("<doc><node a='1' /></doc>");
+               doc2 = parser.parseFromString("<doc><node a=' 1 ' /></doc>");
+               assert.equal(true, compare(doc1, doc2, { stripSpaces: true }).getResult());
+            });
+         });
+
       });
    });
 
