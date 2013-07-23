@@ -113,6 +113,13 @@ doesn't change the way CDATA sections is compared, they are always compared with
 When installed globally with `npm install -g dom-compare` cli utility is available. 
 See usage information and command-line options with `domcompare --help`
 
+You can try it on bundled sambles
+```
+  $ cd samples
+  $ domcompare -s ./expected.xml ./actual.xml
+```
+  
+
 DOM Canonic Form
 ----------------
 
