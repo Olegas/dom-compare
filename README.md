@@ -7,6 +7,13 @@ dom-compare
 
 NodeJS module to compare two DOM-trees
 
+  * [DOM Comparison](#dom-comparison)
+    * [Comparison options](#comparison-options)
+        * [Comments comparison](#comments-comparison)
+        * [Whitespace comparison](#whitespace-comparison)
+    * [Cli utility](#cli-utility)
+  * [DOM Canonic Form](#dom-canonic-form)
+
 DOM Comparison
 --------------
 
@@ -100,6 +107,11 @@ By default, all text nodes (text, CDATA, comments if enabled as mentioned above)
 to leading and trailing whitespaces.
 Set `stripSpaces` option to `true` to automatically strip spaces in text and comment nodes. This option
 doesn't change the way CDATA sections is compared, they are always compared with respect to whitespaces.
+
+### Cli utility
+
+When installed globally with `npm install -g dom-compare` cli utility is available. 
+See usage information and command-line options with `domcompare --help`
 
 DOM Canonic Form
 ----------------
