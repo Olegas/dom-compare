@@ -4,6 +4,7 @@ dom-compare
 [![Build Status](https://travis-ci.org/Olegas/dom-compare.png)](https://travis-ci.org/Olegas/dom-compare)
 [![Coverage Status](https://coveralls.io/repos/Olegas/dom-compare/badge.png?branch=master)](https://coveralls.io/r/Olegas/dom-compare)
 [![NPM version](https://badge.fury.io/js/dom-compare.png)](http://badge.fury.io/js/dom-compare)
+[![Dependency Status](https://gemnasium.com/Olegas/dom-compare.png)](https://gemnasium.com/Olegas/dom-compare)
 
 NodeJS module to compare two DOM-trees
 
