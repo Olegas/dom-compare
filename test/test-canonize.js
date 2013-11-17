@@ -1,5 +1,5 @@
 var assert = require("assert");
-var xmldom = require("xmldom");
+var xmldom = require("tensor-xmldom");
 var parser = new xmldom.DOMParser();
 var domCompare = require('../');
 var canonize = (new (domCompare.XMLSerializer)()).serializeToString;

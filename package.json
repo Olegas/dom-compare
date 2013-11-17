@@ -13,7 +13,7 @@
    },
    "dependencies": {
       "argparse": "1.0.2",
-      "xmldom": "0.1.16",
+      "tensor-xmldom": "0.1.18",
       "colors": "0.6.2"
    },
    "devDependencies": {
