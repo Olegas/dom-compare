@@ -252,4 +252,32 @@ describe("Error collection", function(){
    });
 
 
+   describe("Calling user-provided callback for formatting failure", function () {
+
+      it("User can provide a custom callback function for modifying the format of the failure", function () {
+
+         var doc1 = parser.parseFromString("<root1 attr='1'><a></a></root1>");
+         var doc2 = parser.parseFromString("<root2 attr2='1'><b></b></root2>");
+
+         var result = compare(doc1, doc2, {
+            formatFailure: function (failure, nodeElem) {
+               failure.nodeName = nodeElem.nodeName;
+               failure.randomKey = "random-value";
+               return failure;
+            }
+         });
+
+         var failures = result.getDifferences();
+
+         assert.equal(1, failures.length);
+         assert.equal("Expected element 'root1' instead of 'root2'", failures[0].message);
+
+         assert.equal(failures[0].nodeName, "#document");
+         assert.equal(failures[0].randomKey, "random-value");
+
+      });
+
+   });
+
+
 });
