@@ -19,7 +19,7 @@
    "devDependencies": {
       "istanbul": "latest",
       "mocha-istanbul": "latest",
-      "coveralls": "",
+      "coveralls": "2.7.1",
       "xmldom": "latest",
       "assert": "latest",
       "mocha": "latest"
