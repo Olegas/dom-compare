@@ -14,7 +14,8 @@
    "dependencies": {
       "argparse": "1.0.2",
       "tensor-xmldom": "0.1.18",
-      "colors": "0.6.2"
+      "colors": "0.6.2",
+      "rfc6902-json-diff": "0.1.x"
    },
    "devDependencies": {
       "istanbul": "0.3.8",
