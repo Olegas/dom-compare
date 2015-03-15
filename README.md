@@ -6,6 +6,8 @@ dom-compare
 [![NPM version](https://badge.fury.io/js/dom-compare.png)](http://badge.fury.io/js/dom-compare)
 [![Dependency Status](https://gemnasium.com/Olegas/dom-compare.png)](https://gemnasium.com/Olegas/dom-compare)
 
+**Breaking changes. v0.3.0 requires node version >=0.10**
+
 NodeJS module to compare two DOM-trees
 
   * [DOM Comparison](#dom-comparison)
