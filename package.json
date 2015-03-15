@@ -1,36 +1,32 @@
 {
-  "name": "dom-compare",
-  "description": "Library to compare two DOM trees",
-  "version": "0.2.1",
-  "author": "Oleg Elifantiev <oleg@elifantiev.ru>",
-  "contributors": [],
-  "keywords": [
-    "dom",
-    "comparison"
-  ],
-  "bin": {
-    "domcompare": "bin/domcompare"
-  },
-  "dependencies": {
-    "argparse": "latest",
-    "xmldom": "0.1.16",
-    "colors": "latest"
-  },
-  "devDependencies": {
-    "istanbul": "latest",
-    "mocha-istanbul": "latest",
-    "coveralls": "",
-    "xmldom": "latest",
-    "assert": "latest",
-    "mocha": "latest"
-  },
-  "scripts": {
-    "instrument": "node ./node_modules/.bin/istanbul instrument --output lib-cov --no-compact --variable global.__coverage__ lib",
-    "test-cov": "npm run-script instrument && COVER=1 ISTANBUL_REPORTERS=lcovonly node ./node_modules/.bin/mocha -R mocha-istanbul",
-    "test": "node ./node_modules/mocha/bin/mocha -R spec"
-  },
-  "repository": "git@github.com:Olegas/dom-compare.git",
-  "engines": {
-    "node": "*"
-  }
+   "name": "dom-compare-temp",
+   "description": "Library to compare two DOM trees",
+   "version": "0.0.1",
+   "author": "shakyshane",
+   "contributors": [],
+   "keywords": [
+      "dom",
+      "comparison"
+   ],
+   "bin": {
+      "domcompare": "bin/domcompare"
+   },
+   "dependencies": {
+      "argparse": "latest",
+      "xmldom": "0.1.16",
+      "colors": "latest"
+   },
+   "devDependencies": {
+      "istanbul": "latest",
+      "mocha-istanbul": "latest",
+      "coveralls": "",
+      "xmldom": "latest",
+      "assert": "latest",
+      "mocha": "latest"
+   },
+   "scripts": {
+      "test": "node ./node_modules/mocha/bin/mocha -R spec"
+   },
+   "repository": "git@github.com:Olegas/dom-compare.git",
+   "engines": { "node": "*" }
 }
