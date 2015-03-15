@@ -12,7 +12,8 @@ NodeJS module to compare two DOM-trees
     * [Comparison options](#comparison-options)
         * [Comments comparison](#comments-comparison)
         * [Whitespace comparison](#whitespace-comparison)
-        * [Custom comparators]
+        * [Custom comparators](#custom-comparators-since-03)
+          * [Writing custom comparators](#writing-custom-comparators)
     * [Cli utility](#cli-utility)
   * [DOM Canonic Form](#dom-canonic-form)
 
@@ -112,7 +113,7 @@ to leading and trailing whitespaces.
 Set `stripSpaces` option to `true` to automatically strip spaces in text and comment nodes. This option
 doesn't change the way CDATA sections is compared, they are always compared with respect to whitespaces.
 
-### Custom comparators (since 0.3)
+#### Custom comparators (since 0.3)
 
 **This is experimental feature and may change in future releases**
  
@@ -175,7 +176,7 @@ Using comparators, you can get result like this:
 		]
 ```
 
-#### Writing custom comparators
+##### Writing custom comparators
 
 The comparator is a function. It receives two arguments: expected node and actual node.
 
