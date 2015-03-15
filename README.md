@@ -12,6 +12,7 @@ NodeJS module to compare two DOM-trees
     * [Comparison options](#comparison-options)
         * [Comments comparison](#comments-comparison)
         * [Whitespace comparison](#whitespace-comparison)
+        * [Custom comparators]
     * [Cli utility](#cli-utility)
   * [DOM Canonic Form](#dom-canonic-form)
 
@@ -130,6 +131,8 @@ You can try it on bundled samples:
   /document
       Expected CDATA value '  cdata node' instead of 'cdata node  '
 ```
+
+### Custom comparators (since 0.3) 
   
 
 DOM Canonic Form
