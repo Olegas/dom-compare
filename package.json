@@ -12,17 +12,16 @@
       "domcompare": "bin/domcompare"
    },
    "dependencies": {
-      "argparse": "latest",
+      "argparse": "1.0.2",
       "xmldom": "0.1.16",
-      "colors": "latest"
+      "colors": "0.6.2"
    },
    "devDependencies": {
-      "istanbul": "latest",
-      "mocha-istanbul": "latest",
+      "istanbul": "0.3.8",
+      "mocha-istanbul": "0.2.0",
       "coveralls": "2.7.1",
-      "xmldom": "latest",
-      "assert": "latest",
-      "mocha": "latest"
+      "xmldom": "0.1.19",
+      "mocha": "2.2.1"
    },
    "scripts": {
       "instrument": "node ./node_modules/.bin/istanbul instrument --output lib-cov --no-compact --variable global.__coverage__ lib",
