@@ -4,5 +4,7 @@ node_js:
   - 0.6
   - 0.8
   - 0.10
+  - 0.12
+  - "iojs"
 
 script: npm test && npm run-script test-cov && (cat lcov.info | ./node_modules/.bin/coveralls) && (rm -rf lib-cov lcov.info)
