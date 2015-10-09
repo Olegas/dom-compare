@@ -62,7 +62,7 @@ var compare = require('dom-compare').compare,
 result = compare(expected, actual);
 
 // get comparison result
-console.log(result.getResult()); // false cause' trees are different
+console.log(result.equals()); // false cause' trees are different
 
 // get all differences
 diff = result.getDifferences(); // array of diff-objects
