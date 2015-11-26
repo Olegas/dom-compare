@@ -62,10 +62,10 @@ console.log(result.getResult()); // false cause' trees are different
 diff = result.getDifferences(); // array of diff-objects
 
 // differences, grouped by node XPath
-grouped = reporter.getDifferences(result); // object, key - node XPATH, value - array of differences (strings)
+groupedDiff = reporter.getDifferences(result); // object, key - node XPATH, value - array of differences (strings)
 
 // string representation
-console.log(report.report(result));
+console.log(reporter.report(result));
 ```
 
 Diff-object has a following form:
