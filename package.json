@@ -24,9 +24,9 @@
       "mocha": "2.2.1"
    },
    "scripts": {
-      "instrument": "node ./node_modules/.bin/istanbul instrument --output lib-cov --no-compact --variable global.__coverage__ lib",
-      "test-cov": "npm run-script instrument && COVER=1 ISTANBUL_REPORTERS=lcovonly node ./node_modules/.bin/mocha -R mocha-istanbul",
-      "test": "node ./node_modules/mocha/bin/mocha -R spec"
+      "instrument": "istanbul instrument --output lib-cov --no-compact --variable global.__coverage__ lib",
+      "test-cov": "npm run-script instrument && COVER=1 ISTANBUL_REPORTERS=lcovonly mocha -R mocha-istanbul",
+      "test": "mocha -R spec"
    },
    "repository": "git@github.com:Olegas/dom-compare.git",
    "engines": { "node": "*" }
