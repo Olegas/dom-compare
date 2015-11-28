@@ -14,7 +14,7 @@ describe("Differences reporting", function(){
          var doc = parser.parseFromString("<doc attr1='1' attr2='2'><node1 attrX='y'><inner1 /></node1><node2><inner /></node2></doc>");
          var doc2 = parser.parseFromString("<doc attr1='10'><node1 /><node2 /><extraNode /></doc>");
 
-         var failures = reporter.getDefferences(compare(doc, doc2));
+         var failures = reporter.getDifferences(compare(doc, doc2));
 
          assert.equal(3, Object.keys(failures).length);
          assert.equal(3, failures['/doc'].length);
@@ -22,7 +22,7 @@ describe("Differences reporting", function(){
          assert.equal(1, failures['/doc/node2'].length);
 
          // check for results doplication
-         failures = reporter.getDefferences(compare(doc, doc2));
+         failures = reporter.getDifferences(compare(doc, doc2));
 
          assert.equal(3, Object.keys(failures).length);
          assert.equal(3, failures['/doc'].length);
