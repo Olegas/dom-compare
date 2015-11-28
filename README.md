@@ -15,6 +15,8 @@ NodeJS module to compare two DOM-trees
     * [Cli utility](#cli-utility)
   * [DOM Canonic Form](#dom-canonic-form)
 
+Works with Node.JS v0.10+
+
 DOM Comparison
 --------------
 
