@@ -79,7 +79,7 @@ Diff-object has a following form:
 }
 ```
 
-By using `GroupongReporter` one can get a result of a following type
+By using `GroupingReporter` one can get a result of a following type
 
 ```javascript
 {
