@@ -9,7 +9,7 @@ var domcompare = require('../'),
     fs = require('fs'),
     ArgumentParser = require('argparse').ArgumentParser,
     version = require('../package.json').version,
-    xmldom = require('xmldom'),
+    xmldom = require('tensor-xmldom'),
     path = require('path'),
     domparser = new (xmldom.DOMParser)(),
     args, dom1, dom2, f1ext, f2ext, mimeMap, result, argparser;

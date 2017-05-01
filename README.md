@@ -6,12 +6,16 @@ dom-compare
 [![NPM version](https://badge.fury.io/js/dom-compare.png)](http://badge.fury.io/js/dom-compare)
 [![Dependency Status](https://gemnasium.com/Olegas/dom-compare.png)](https://gemnasium.com/Olegas/dom-compare)
 
+**Breaking changes. v0.3.0 requires node version >=0.10**
+
 NodeJS module to compare two DOM-trees
 
   * [DOM Comparison](#dom-comparison)
     * [Comparison options](#comparison-options)
         * [Comments comparison](#comments-comparison)
         * [Whitespace comparison](#whitespace-comparison)
+        * [Custom comparators](#custom-comparators-since-03)
+          * [Writing custom comparators](#writing-custom-comparators)
     * [Cli utility](#cli-utility)
   * [DOM Canonic Form](#dom-canonic-form)
 
@@ -58,7 +62,7 @@ var compare = require('dom-compare').compare,
 result = compare(expected, actual);
 
 // get comparison result
-console.log(result.getResult()); // false cause' trees are different
+console.log(result.equals()); // false cause' trees are different
 
 // get all differences
 diff = result.getDifferences(); // array of diff-objects
@@ -111,6 +115,84 @@ to leading and trailing whitespaces.
 Set `stripSpaces` option to `true` to automatically strip spaces in text and comment nodes. This option
 doesn't change the way CDATA sections is compared, they are always compared with respect to whitespaces.
 
+#### Custom comparators (since 0.3)
+
+**This is experimental feature and may change in future releases**
+ 
+Sometimes one needs a special rules to compare some DOM elements.
+
+Imagine you have some nodes with `config` attr which contains JSON data (see `samples/json-compare`). 
+So, if you'd like to compare such documents, you will see something like this:
+
+```
+/document/div
+	Attribute 'config': expected value '{"attr1":10,"attr2":30,"attr3":-1}' instead of '{"attr1":10,"attr2":20}'
+```
+
+This makes not much sense... You can use custom comparators option!
+
+```javascript
+var domcompare = require('dom-compare');
+
+// create comparator for specified node name
+// you can specify multiple node names here - pass multiple arguments
+var configComparator = domcompare.comparators.jsonComparator('config')
+
+var res = domcompare.compare(treeA, treeB, {
+    comparators: {
+        // for every attrbute difference, run custom comparison routine
+        // you can pass multiple comparators here using array
+        ATTRIBUTE_NODE: configComparator
+    }
+});
+```
+
+Bundled JSON comparator can parse node's value like JSON, and if it's parsed, 
+compare using [rfc6902-json-diff](https://www.npmjs.com/package/rfc6902-json-diff) library.
+Using comparators, you can get result like this:
+
+```
+/document/div
+	Attribute "config" differs. Expected:
+		{
+		  "attr1": 10,
+		  "attr2": 20
+		}
+		Actual:
+		{
+		  "attr1": 10,
+		  "attr2": 30,
+		  "attr3": -1
+		}
+		Diff:
+		[
+		  {
+		    "op": "replace",
+		    "path": "/attr2",
+		    "value": 20
+		  },
+		  {
+		    "op": "remove",
+		    "path": "/attr3"
+		  }
+		]
+```
+
+##### Writing custom comparators
+
+The comparator is a function. It receives two arguments: expected node and actual node.
+
+Comparators can return following values:
+
+  * any falsy value - skip to next comparator or (if no any) proceed as regular
+  * `true` - ignore any differences, continue comparison
+  * non empty string - difference found, string is treated as error message
+  * object with fields: 
+     * `message` - error message as above, 
+     * `stop` - boolean flag, set to `true` to stop further comparison  
+     
+See `lib/comparators/jsonComparator.js` for a working example.
+
 ### Cli utility
 
 When installed globally with `npm install -g dom-compare` cli utility is available. 
@@ -130,7 +212,6 @@ You can try it on bundled samples:
   /document
       Expected CDATA value '  cdata node' instead of 'cdata node  '
 ```
-  
 
 DOM Canonic Form
 ----------------

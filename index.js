@@ -14,7 +14,10 @@
       compare: require(libPrefix + '/compare'),
       XMLSerializer: require(libPrefix + '/canonizer'),
       revXPath: require(libPrefix + '/revxpath'),
-      GroupingReporter: require(libPrefix + '/reporters/groupingReporter.js')
+      GroupingReporter: require(libPrefix + '/reporters/groupingReporter.js'),
+      comparators: {
+         jsonComparator: require(libPrefix + '/comparators/jsonComparator.js')
+      }
    };
 
 })();
