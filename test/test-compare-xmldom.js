@@ -4,7 +4,7 @@ var parser = new xmldom.DOMParser();
 var domCompare = require("../");
 var compare = domCompare.compare;
 
-describe('Compare', function () {
+describe('Compare using XMLDOM as a parser', function () {
    describe('Documents', function () {
       it('with different root node names are different', function () {
          var doc1 = parser.parseFromString("<doc />");
