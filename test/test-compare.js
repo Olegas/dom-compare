@@ -37,6 +37,20 @@ describe('Compare', function () {
       });
    });
 
+   describe('Document fragments', function () {
+      it('supported', function () {
+         var doc = parser.parseFromString("<doc />");
+
+         var frag1 = doc.createDocumentFragment();
+         var frag2 = doc.createDocumentFragment();
+
+         frag1.appendChild(doc.createElement('div'));
+         frag2.appendChild(doc.createElement('div'));
+
+         assert.equal(true, compare(frag1, frag2).getResult());
+      });
+   });
+
    describe('Nodes', function () {
       it('with different names are different', function () {
          var doc1 = parser.parseFromString("<doc><nodeA></doc>");
