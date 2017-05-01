@@ -1,33 +1,36 @@
 {
-   "name": "dom-compare",
-   "description": "Library to compare two DOM trees",
-   "version": "0.3.0",
-   "author": "Oleg Elifantiev <oleg@elifantiev.ru>",
-   "contributors": [],
-   "keywords": [
-      "dom",
-      "comparison"
-   ],
-   "bin": {
-      "domcompare": "bin/domcompare"
-   },
-   "dependencies": {
-      "argparse": "1.0.2",
-      "xmldom": "0.1.16",
-      "colors": "0.6.2"
-   },
-   "devDependencies": {
-      "istanbul": "0.3.8",
-      "mocha-istanbul": "0.2.0",
-      "coveralls": "2.7.1",
-      "xmldom": "0.1.19",
-      "mocha": "2.2.1"
-   },
-   "scripts": {
-      "instrument": "istanbul instrument --output lib-cov --no-compact --variable global.__coverage__ lib",
-      "test-cov": "npm run-script instrument && COVER=1 ISTANBUL_REPORTERS=lcovonly mocha -R mocha-istanbul",
-      "test": "mocha -R spec"
-   },
-   "repository": "git@github.com:Olegas/dom-compare.git",
-   "engines": { "node": "*" }
+  "name": "dom-compare",
+  "description": "Library to compare two DOM trees",
+  "version": "0.3.0",
+  "author": "Oleg Elifantiev <oleg@elifantiev.ru>",
+  "contributors": [],
+  "keywords": [
+    "dom",
+    "comparison"
+  ],
+  "bin": {
+    "domcompare": "bin/domcompare"
+  },
+  "dependencies": {
+    "argparse": "1.0.2",
+    "xmldom": "0.1.16",
+    "colors": "0.6.2"
+  },
+  "devDependencies": {
+    "coveralls": "2.7.1",
+    "istanbul": "0.3.8",
+    "jsdom": "^10.1.0",
+    "mocha": "2.2.1",
+    "mocha-istanbul": "0.2.0",
+    "xmldom": "0.1.19"
+  },
+  "scripts": {
+    "instrument": "istanbul instrument --output lib-cov --no-compact --variable global.__coverage__ lib",
+    "test-cov": "npm run-script instrument && COVER=1 ISTANBUL_REPORTERS=lcovonly mocha -R mocha-istanbul",
+    "test": "mocha -R spec"
+  },
+  "repository": "git@github.com:Olegas/dom-compare.git",
+  "engines": {
+    "node": "*"
+  }
 }
