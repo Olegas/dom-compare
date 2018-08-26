@@ -1,13 +1,14 @@
 language: node_js
 
 node_js:
+  - "9"
+  - "8"
+  - "7"
+  - "6"
   - "5.1"
   - "5.0"
   - "4.2"
   - "4.1"
   - "4.0"
-  - 0.10
-  - 0.12
-  - "iojs"
 
 script: npm test && npm run-script test-cov && (cat lcov.info | ./node_modules/.bin/coveralls) && (rm -rf lib-cov lcov.info)
