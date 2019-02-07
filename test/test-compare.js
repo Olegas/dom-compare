@@ -6,6 +6,13 @@ var compare = domCompare.compare;
 
 describe('Compare', function () {
 
+   it('equal documents reports no differences', function() {
+      assert.equal(true, compare(
+          parser.parseFromString('<html><div /></html>'),
+          parser.parseFromString('<html><div /></html>')
+      ).getResult());
+   });
+
    describe('Strings', function() {
       it('string comparison is not supported, error is thrown', function() {
          var errorText;
@@ -120,6 +127,13 @@ describe('Compare', function () {
          var doc1 = parser.parseFromString("<doc><nodeA/><nodeB/></doc>");
          var doc2 = parser.parseFromString("<doc><nodeB/><nodeA/></doc>");
          assert.equal(false, compare(doc1, doc2).getResult());
+      });
+
+      it("full list of child nodes is compared", function() {
+          var doc1 = parser.parseFromString("<doc><nodeA/><nodeB/></doc>");
+          var doc2 = parser.parseFromString("<doc><nodeA/><nodeB/><nodeC/><nodeD/></doc>");
+          assert.equal(false, compare(doc1, doc2).getResult());
+          assert.equal(2, compare(doc1, doc2).getDifferences().length);
       });
    });
 
@@ -242,6 +256,46 @@ describe('Compare', function () {
             doc2 = parser.parseFromString("<doc><![CDATA[ data-data-data]]></doc>");
             assert.equal(false, compare(doc1, doc2, { stripSpaces: true }).getResult());
          });
+      });
+   });
+
+   describe('Regression tests', function() {
+      it('Issue #36', function() {
+          var str1 = `<note>
+<to>Tove</to>
+<from>Jani</from>
+<heading>Reminder</heading>
+<body>I got changed</body>
+</note>`;
+          var str2 = `<note>
+<to>Tove</to>
+<from>Jani</from>
+<heading>Reminder</heading>
+<body>Don't forget me this weekend!</body>
+<age>seventeen</age>
+<address>street of freedom</address>
+<anotherelement>
+ <message>Hiyo</message>
+</anotherelement>
+</note>`;
+
+          var doc1 = parser.parseFromString(str1);
+          var doc2 = parser.parseFromString(str2);
+          assert.equal(false, compare(doc1, doc2).getResult());
+          var diff = compare(doc1, doc2).getDifferences();
+          assert.equal(4, diff.length);
+          assert.equal(
+              "Expected text 'I got changed' instead of 'Don't forget me this weekend!'",
+              diff[0].message);
+          assert.equal(
+              "Extra element 'age'",
+              diff[1].message);
+          assert.equal(
+              "Extra element 'address'",
+              diff[2].message);
+          assert.equal(
+              "Extra element 'anotherelement'",
+              diff[3].message);
       });
    });
 });
