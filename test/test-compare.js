@@ -5,6 +5,22 @@ var domCompare = require("../");
 var compare = domCompare.compare;
 
 describe('Compare', function () {
+
+   describe('Strings', function() {
+      it('string comparison is not supported, error is thrown', function() {
+         var errorText;
+         try {
+            compare('<html></html>', '<html></html>')
+         } catch(e) {
+            errorText = '' + e;
+         }
+         assert.equal(
+             'Error: String comparison is not supported. You must parse string to document to perform comparison.',
+             errorText);
+      });
+   });
+
+
    describe('Documents', function () {
       it('with different root node names are different', function () {
          var doc1 = parser.parseFromString("<doc />");
