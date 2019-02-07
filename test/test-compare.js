@@ -6,6 +6,13 @@ var compare = domCompare.compare;
 
 describe('Compare', function () {
 
+   it('equal documents reports no differences', function() {
+      assert.equal(true, compare(
+          parser.parseFromString('<html><div /></html>'),
+          parser.parseFromString('<html><div /></html>')
+      ).getResult());
+   });
+
    describe('Strings', function() {
       it('string comparison is not supported, error is thrown', function() {
          var errorText;
