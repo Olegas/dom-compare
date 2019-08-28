@@ -96,7 +96,8 @@ Comparison function can take a third argument with options like this:
 var options = {
     stripSpaces: true,
     compareComments: true,
-    collapseSpaces: true
+    collapseSpaces: true,
+    normalizeNewlines: true
 };
 
 result = compare(expected, actual, options);
@@ -113,6 +114,8 @@ doesn't change the way CDATA sections is compared, they are always compared with
 Set `collapseSpaces` option to `true` to automatically collapse all spaces in text and comment nodes.
 This option doesn't change the way CDATA sections is compared, they are always compared with respect to
 whitespaces.
+Set `normalizeNewlines` option to `true` to automatically normalize new line characters in text, 
+comment, and CDATA nodes.
 
 ### Cli utility
 
