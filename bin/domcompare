@@ -36,6 +36,13 @@ argparser.addArgument([ '-s', '--stripspaces' ], {
     help: "Strip spaces when comparing strings (exclude CDATA nodes)"
 });
 
+argparser.addArgument([ '-s', '--collapsespaces' ], {
+    defaultValue: false,
+    dest: 'collapseSpaces',
+    action: 'storeTrue',
+    help: "Collapse spaces when comparing strings (exclude CDATA nodes)"
+});
+
 argparser.addArgument([ '-c', '--comments' ], {
     defaultValue: false,
     dest: 'compareComments',
