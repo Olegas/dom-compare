@@ -95,7 +95,8 @@ Comparison function can take a third argument with options like this:
 ```javascript
 var options = {
     stripSpaces: true,
-    compareComments: true
+    compareComments: true,
+    collapseSpaces: true
 };
 
 result = compare(expected, actual, options);
@@ -106,9 +107,12 @@ By default, all comments are ignored. Set `compareComments` options to `true` to
 
 #### Whitespace comparison
 By default, all text nodes (text, CDATA, comments if enabled as mentioned above) compared with respect 
-to leading and trailing whitespaces.
+to leading, trailing, and internal whitespaces.
 Set `stripSpaces` option to `true` to automatically strip spaces in text and comment nodes. This option
 doesn't change the way CDATA sections is compared, they are always compared with respect to whitespaces.
+Set `collapseSpaces` option to `true` to automatically collapse all spaces in text and comment nodes.
+This option doesn't change the way CDATA sections is compared, they are always compared with respect to
+whitespaces.
 
 ### Cli utility
 
