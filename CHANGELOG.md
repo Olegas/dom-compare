@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## v0.4.0, 05.09.2019
+
+ * Added `collapseSpaces` options. See docs for details. Thanks to @jordandh
+
 ## v0.3.1, 01.05.2017
 
  * Added support for document fragments. Closing #26
