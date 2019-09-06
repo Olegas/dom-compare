@@ -17,7 +17,7 @@ describe('Compare', function () {
       it('string comparison is not supported, error is thrown', function() {
          var errorText;
          try {
-            compare('<html></html>', '<html></html>')
+            compare('<html></html>', '<html></html>');
          } catch(e) {
             errorText = '' + e;
          }
@@ -117,6 +117,12 @@ describe('Compare', function () {
                doc2 = parser.parseFromString("<doc><node a=' 1 ' /></doc>");
                assert.equal(true, compare(doc1, doc2, { stripSpaces: true }).getResult());
             });
+
+            it("but can be collapsed", function(){
+               doc1 = parser.parseFromString("<doc><node a=' 1 \t\n\r 2 ' /></doc>");
+               doc2 = parser.parseFromString("<doc><node a=' 1 \r\n\t 2 ' /></doc>");
+               assert.equal(true, compare(doc1, doc2, { collapseSpaces: true }).getResult());
+            });
          });
 
       });
@@ -202,6 +208,48 @@ describe('Compare', function () {
                }).getResult());
             });
          });
+
+         describe("Whitespace collapsing", function () {
+            it("normally all whitespaces are preserved", function () {
+               var doc1 = parser.parseFromString("<doc><!-- A \n\r\t B --></doc>");
+               var doc2 = parser.parseFromString("<doc><!-- A \n\r\t B --></doc>");
+               assert.equal(true, compare(doc1, doc2, { compareComments: true }).getResult());
+
+               doc1 = parser.parseFromString("<doc><!-- A \n\r\t B --></doc>");
+               doc2 = parser.parseFromString("<doc><!-- A \t\n\r B --></doc>");
+               assert.equal(false, compare(doc1, doc2, { compareComments: true }).getResult());
+            });
+
+            it("`collapseSpaces` option strips them", function () {
+               var doc1 = parser.parseFromString("<doc><!-- A \n\r\t B --></doc>");
+               var doc2 = parser.parseFromString("<doc><!-- A \t\n\r B --></doc>");
+               assert.equal(true, compare(doc1, doc2, {
+                  compareComments: true,
+                  collapseSpaces: true
+               }).getResult());
+
+               doc1 = parser.parseFromString("<doc><!-- \n\r\t A B --></doc>");
+               doc2 = parser.parseFromString("<doc><!-- \t\n\r A  B --></doc>");
+               assert.equal(true, compare(doc1, doc2, {
+                  compareComments: true,
+                  collapseSpaces: true
+               }).getResult());
+
+               doc1 = parser.parseFromString("<doc><!-- A  B \n\r\t --></doc>");
+               doc2 = parser.parseFromString("<doc><!-- A B \t\n\r --></doc>");
+               assert.equal(true, compare(doc1, doc2, {
+                  compareComments: true,
+                  collapseSpaces: true
+               }).getResult());
+
+               doc1 = parser.parseFromString("<doc><!-- \n\r\t A  B \n\r\t --></doc>");
+               doc2 = parser.parseFromString("<doc><!-- A \t\n\r B \t\n\r --></doc>");
+               assert.equal(true, compare(doc1, doc2, {
+                  compareComments: true,
+                  collapseSpaces: true
+               }).getResult());
+            });
+         });
       });
 
       describe("Text", function () {
@@ -236,10 +284,28 @@ describe('Compare', function () {
             var doc2 = parser.parseFromString("<doc><node> A </node></doc>");
             assert.equal(true, compare(doc1, doc2, { stripSpaces: true }).getResult());
          });
+
+         it("set `collapseSpaces` option to collapse them", function () {
+            var doc1 = parser.parseFromString("<doc><node> A \n\r\t B </node></doc>");
+            var doc2 = parser.parseFromString("<doc><node> A \t\n\r B </node></doc>");
+            assert.equal(true, compare(doc1, doc2, { collapseSpaces: true }).getResult());
+
+            doc1 = parser.parseFromString("<doc><node> \n\r\t A  B </node></doc>");
+            doc2 = parser.parseFromString("<doc><node> \t\n\r A B </node></doc>");
+            assert.equal(true, compare(doc1, doc2, { collapseSpaces: true }).getResult());
+
+            doc1 = parser.parseFromString("<doc><node> A  B \n\r\t </node></doc>");
+            doc2 = parser.parseFromString("<doc><node> A B \t\n\r </node></doc>");
+            assert.equal(true, compare(doc1, doc2, { collapseSpaces: true }).getResult());
+
+            doc1 = parser.parseFromString("<doc><node> \n\r\t A  B \n\r\t </node></doc>");
+            doc2 = parser.parseFromString("<doc><node> A \t\n\r B \t\n\r </node></doc>");
+            assert.equal(true, compare(doc1, doc2, { collapseSpaces: true }).getResult());
+         });
       });
 
       describe("CDATA", function () {
-         it("compared as text nodes but `stripSpaces` are not respected", function () {
+         it("compared as text nodes but `stripSpaces` and `collapseSpaces` are not respected", function () {
             var doc1 = parser.parseFromString("<doc><![CDATA[data-data-data]]></doc>");
             var doc2 = parser.parseFromString("<doc><![CDATA[data-data-data]]></doc>");
             assert.equal(true, compare(doc1, doc2).getResult());
@@ -255,6 +321,22 @@ describe('Compare', function () {
             doc1 = parser.parseFromString("<doc><![CDATA[data-data-data]]></doc>");
             doc2 = parser.parseFromString("<doc><![CDATA[ data-data-data]]></doc>");
             assert.equal(false, compare(doc1, doc2, { stripSpaces: true }).getResult());
+
+            doc1 = parser.parseFromString("<doc><![CDATA[ data data \n\r\t data ]]></doc>");
+            doc2 = parser.parseFromString("<doc><![CDATA[ data \n\r\t data-data ]]></doc>");
+            assert.equal(false, compare(doc1, doc2, { collapseSpaces: true }).getResult());
+
+            doc1 = parser.parseFromString("<doc><![CDATA[ \n\r\t data  data ]]></doc>");
+            doc2 = parser.parseFromString("<doc><![CDATA[ \t\n\r data data ]]></doc>");
+            assert.equal(false, compare(doc1, doc2, { collapseSpaces: true }).getResult());
+
+            doc1 = parser.parseFromString("<doc><![CDATA[ data  data \n\r\t ]]></doc>");
+            doc2 = parser.parseFromString("<doc><![CDATA[ data data \t\n\r ]]></doc>");
+            assert.equal(false, compare(doc1, doc2, { collapseSpaces: true }).getResult());
+
+            doc1 = parser.parseFromString("<doc><![CDATA[ \n\r\t data  data \n\r\t ]]></doc>");
+            doc2 = parser.parseFromString("<doc><![CDATA[ data \t\n\r data \t\n\r ]]></doc>");
+            assert.equal(false, compare(doc1, doc2, { collapseSpaces: true }).getResult());
          });
       });
    });
