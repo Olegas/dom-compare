@@ -123,6 +123,12 @@ describe('Compare', function () {
                doc2 = parser.parseFromString("<doc><node a=' 1 \r\n\t 2 ' /></doc>");
                assert.equal(true, compare(doc1, doc2, { collapseSpaces: true }).getResult());
             });
+
+            it("but newlines can be normalized", function(){
+               doc1 = parser.parseFromString("<doc><node a=' 1 \n 2 ' /></doc>");
+               doc2 = parser.parseFromString("<doc><node a=' 1 \r\n 2 ' /></doc>");
+               assert.equal(true, compare(doc1, doc2, { normalizeNewlines: true }).getResult());
+            });
          });
 
       });
@@ -250,6 +256,27 @@ describe('Compare', function () {
                }).getResult());
             });
          });
+
+         describe("Newline normalizing", function () {
+            it("normally all whitespaces at the beginning/end are preserved", function () {
+               var doc1 = parser.parseFromString("<doc><!-- A \r\n \n B --></doc>");
+               var doc2 = parser.parseFromString("<doc><!-- A \r\n \n B --></doc>");
+               assert.equal(true, compare(doc1, doc2, { compareComments: true }).getResult());
+
+               doc1 = parser.parseFromString("<doc><!-- A \r\n \n B --></doc>");
+               doc2 = parser.parseFromString("<doc><!-- A \n \r\n B --></doc>");
+               assert.equal(false, compare(doc1, doc2, { compareComments: true }).getResult());
+            });
+
+            it("`normalizeNewlines` option normalizes them", function () {
+               var doc1 = parser.parseFromString("<doc><!-- \r A \r\n \n\r B \n --></doc>");
+               var doc2 = parser.parseFromString("<doc><!-- \r\n A \n \r\n\r B \r --></doc>");
+               assert.equal(true, compare(doc1, doc2, {
+                  compareComments: true,
+                  normalizeNewlines: true
+               }).getResult());
+            });
+         });
       });
 
       describe("Text", function () {
@@ -302,6 +329,12 @@ describe('Compare', function () {
             doc2 = parser.parseFromString("<doc><node> A \t\n\r B \t\n\r </node></doc>");
             assert.equal(true, compare(doc1, doc2, { collapseSpaces: true }).getResult());
          });
+
+         it("set `normalizeNewlines` option to normalize newlines", function () {
+            var doc1 = parser.parseFromString("<doc><node> \r\n A \r B \n </node></doc>");
+            var doc2 = parser.parseFromString("<doc><node> \n A \r\n B \r </node></doc>");
+            assert.equal(true, compare(doc1, doc2, { normalizeNewlines: true }).getResult());
+         });
       });
 
       describe("CDATA", function () {
@@ -337,6 +370,12 @@ describe('Compare', function () {
             doc1 = parser.parseFromString("<doc><![CDATA[ \n\r\t data  data \n\r\t ]]></doc>");
             doc2 = parser.parseFromString("<doc><![CDATA[ data \t\n\r data \t\n\r ]]></doc>");
             assert.equal(false, compare(doc1, doc2, { collapseSpaces: true }).getResult());
+         });
+
+         it("set `normalizeNewlines` option to normalize newlines", function () {
+            var doc1 = parser.parseFromString("<doc><![CDATA[ \r\n data \r data \n ]]></doc>");
+            var doc2 = parser.parseFromString("<doc><![CDATA[ \n data \r\n data \r ]]></doc>");
+            assert.equal(true, compare(doc1, doc2, { normalizeNewlines: true }).getResult());
          });
       });
    });

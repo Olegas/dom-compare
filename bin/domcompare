@@ -43,6 +43,13 @@ argparser.addArgument([ '-s', '--collapsespaces' ], {
     help: "Collapse spaces when comparing strings (exclude CDATA nodes)"
 });
 
+argparser.addArgument([ '-s', '--normalizenewlines' ], {
+    defaultValue: false,
+    dest: 'normalizeNewlines',
+    action: 'storeTrue',
+    help: "Normalize newlines when comparing strings (include CDATA nodes)"
+});
+
 argparser.addArgument([ '-c', '--comments' ], {
     defaultValue: false,
     dest: 'compareComments',
