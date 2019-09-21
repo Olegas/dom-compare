@@ -36,14 +36,14 @@ argparser.addArgument([ '-s', '--stripspaces' ], {
     help: "Strip spaces when comparing strings (exclude CDATA nodes)"
 });
 
-argparser.addArgument([ '-s', '--collapsespaces' ], {
+argparser.addArgument([ '-l', '--collapsespaces' ], {
     defaultValue: false,
     dest: 'collapseSpaces',
     action: 'storeTrue',
     help: "Collapse spaces when comparing strings (exclude CDATA nodes)"
 });
 
-argparser.addArgument([ '-s', '--normalizenewlines' ], {
+argparser.addArgument([ '-n', '--normalizenewlines' ], {
     defaultValue: false,
     dest: 'normalizeNewlines',
     action: 'storeTrue',
