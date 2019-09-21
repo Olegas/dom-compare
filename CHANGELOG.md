@@ -1,8 +1,12 @@
 # CHANGELOG
 
+## v0.5.0, 21.09.2019
+
+ * Added `normalizeNewlines` option. See docs for details. Thanks to @jordandh
+
 ## v0.4.0, 05.09.2019
 
- * Added `collapseSpaces` options. See docs for details. Thanks to @jordandh
+ * Added `collapseSpaces` option. See docs for details. Thanks to @jordandh
 
 ## v0.3.1, 01.05.2017
 
