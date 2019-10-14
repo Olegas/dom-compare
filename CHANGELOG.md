@@ -2,7 +2,7 @@
 
 ## v0.6.0, 14.10.2019
 
- * Fixed #43. Thanks to @Sh33pman
+ * Fixed [#43](https://github.com/Olegas/dom-compare/issues/43). Thanks to @Sh33pman
 
 ## v0.5.0, 21.09.2019
 
